@@ -11,7 +11,9 @@ def digest(filename):
         data = file.readlines()
     
         for line in data:
-            edgeID, startID, endID, length = line.split()
+            _, startID, endID, length = line.split()
+            
+            # coerce into proper type
             startID, endID, length = int(startID), int(endID), float(length)
 
             if startID not in graph:
@@ -19,6 +21,6 @@ def digest(filename):
             graph[startID].append((endID, length))
     return graph
 
-parsed_data = digest("CSCI311-CityConnections\SanJaoquin.txt")
+parsed_data = digest("SanJaoquin.txt")
 
 print(parsed_data[0])
