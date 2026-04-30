@@ -1,4 +1,5 @@
 import sys
+import time
 
 class UnionFind:
     def __init__(self, nodes):
@@ -88,6 +89,7 @@ def main():
     output_file = sys.argv[2]
 
     edges, nodes = read_graph(input_file)
+
     mst_edges, total_weight = kruskal(edges, nodes)
     write_mst(output_file, mst_edges)
 
