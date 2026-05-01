@@ -4,4 +4,4 @@
 
 ## Running the Program
 
-To run the program type: python (algorithm) (inputfile) (outputfile) where the options are (prims-alg.py) or (kruskal.py)
+To run the program type: python (algorithm) (inputfile) (outputfile) where the options for (algorithm) are (prims-alg.py) or (kruskal.py)
