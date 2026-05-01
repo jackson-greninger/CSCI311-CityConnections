@@ -1,5 +1,6 @@
 import sys
 from digest import digest
+import time
 
 def prims_algorithm(adjacent_list, nodes):
     visited   = set()
@@ -69,21 +70,41 @@ if __name__ == "__main__":
     # testing
     if len(sys.argv) == 1:
         adj_list, edges, nodes = digest("test.txt")
+
+        start = time.time()
         mst = prims_algorithm(adj_list, nodes)
+        end = time.time()
+        elapsed = end - start
+
         total = 0
         for eid in mst:
             start, end, weight = edges[eid]
-            print(f"edge {eid}: {start} -- {end}  weight {weight}")
+            #print(f"edge {eid}: {start} -- {end}  weight {weight}")
             total += weight
         print(f"Total weight: {total}")
 
     elif len(sys.argv) == 3:
         adj_list, edges, nodes = digest(sys.argv[1])
+
+        start = time.time()
         mst = prims_algorithm(adj_list, nodes)
-        with open(sys.argv[2], 'w') as f:
+        end = time.time()
+        elapsed = end - start
+        
+        total_weight = 0
+        total_nodes = 0
+        total_edges = 0
+
+        with open(sys.argv[2], 'r') as f:
             for eid in mst:
                 start, end, weight = edges[eid]
-                f.write(f"{eid} {start} {end} {weight}\n")
+                total_weight += weight
+                total_edges += 1
+
+        print(f"Nodes: {len(nodes)}")
+        print(f"Edges in MST: {total_edges}")
+        print(f"Total MST Weight: {total_weight}")
+        print(f"Elapsed time: {elapsed}")
 
     else:
         print("Usage: python prims-alg.py inputfile outputfile")

@@ -5,22 +5,30 @@ def digest(filename):
     - keys are start node ID's
     - values are tuples: (end node ID, length/weight)
     """
-    graph = {}
+    adjacency_list = {}
+    edges = {}
+    nodes = set()
     
     with open(filename, 'r') as file:
-        data = file.readlines()
-    
-        for line in data:
-            _, startID, endID, length = line.split()
+
+        for line in file:
+            data = line.split()
+
+            if len(data) != 4:
+                continue
+            
+            eid, start, end, weight = data
             
             # coerce into proper type
-            startID, endID, length = int(startID), int(endID), float(length)
+            eid, start, end, weight = int(eid), int(start), int(end), float(weight)
 
-            if startID not in graph:
-                graph[startID] = []
-            graph[startID].append((endID, length))
-    return graph
+            edges[eid] = (start, end, weight)
+            nodes.update([start, end])
+
+            # both directions - undirected graph
+            adjacency_list.setdefault(start, []).append((end,   weight, eid))
+            adjacency_list.setdefault(end,   []).append((start, weight, eid))
+    
+    return adjacency_list, edges, nodes
 
 parsed_data = digest("SanJaoquin.txt")
-
-print(parsed_data[0])

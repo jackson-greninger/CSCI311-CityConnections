@@ -90,12 +90,22 @@ def main():
 
     edges, nodes = read_graph(input_file)
 
+    # timing
+    start_time = time.time()
+
     mst_edges, total_weight = kruskal(edges, nodes)
+
+    end_time = time.time()
+    elapsed = end_time - start_time
+
     write_mst(output_file, mst_edges)
+
+
 
     print(f"Nodes: {len(nodes)}")
     print(f"Edges in MST: {len(mst_edges)}")
     print(f"Total MST Weight: {total_weight}")
+    print(f"Elapsed time: {elapsed}")
 
 
 if __name__ == "__main__":
